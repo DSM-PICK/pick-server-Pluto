@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"errors"
@@ -25,6 +25,22 @@ func ScheduleCheck(scheduleType string) (string, error) {
 		return "self-study", nil
 	case "방과후":
 		return "after-school", nil
+	}
+	return "", errors.New("invalid schedule")
+}
+
+func WeekdayCheck(weekday string) (string, error) {
+	switch weekday {
+	case "Monday":
+		return "after-school", nil
+	case "Tuesday":
+		return "after-school", nil
+	case "Wednesday":
+		return "club", nil
+	case "Thursday":
+		return "self-study", nil
+	case "Friday":
+		return "club", nil
 	}
 	return "", errors.New("invalid schedule")
 }

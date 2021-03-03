@@ -1,4 +1,4 @@
-package domain
+package entity
 
 type Teacher struct {
 	Id string `gorm:"size:16;PrimaryKey"`

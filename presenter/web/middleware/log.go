@@ -34,6 +34,7 @@ func logForm(context *gin.Context, duration time.Duration) logrus.Fields {
 		"method": context.Request.Method,
 		"path": context.Request.RequestURI,
 		"status": context.Writer.Status(),
+		"header": context.Request.Header,
 		"body": string(bodyBytes),
 		"formData": context.Request.MultipartForm,
 	}

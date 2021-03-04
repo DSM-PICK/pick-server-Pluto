@@ -7,7 +7,7 @@ import (
 )
 
 func DefaultBadRequest(context *gin.Context) {
-	context.AbortWithStatusJSON(http.StatusBadRequest, map[string]string {
-		"message": fmt.Sprintf("[%s] %s", defaultBadRequest, "invalid request"),
+	context.AbortWithStatusJSON(http.StatusBadRequest, Exception{
+		"message": fmt.Sprintf("[%s] %s", DefaultBadRequestException, "invalid request"),
 	})
 }

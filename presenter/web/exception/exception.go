@@ -1,5 +1,8 @@
 package exception
 
 const (
-	defaultBadRequest = "D400"
+	DefaultBadRequestException    = "d400"
+	InvalidAuthorizationException = "a401"
 )
+
+type Exception map[string]string

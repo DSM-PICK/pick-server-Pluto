@@ -19,6 +19,7 @@ func Main() {
 	router.Use(middleware.Recover())
 
 	plutoRouter := router.Group("/pluto")
+	plutoRouter.Use(middleware.Auth())
 	{
 		plutoRouter.POST("/activity", setActivities)
 		plutoRouter.POST("/student", setStudents)

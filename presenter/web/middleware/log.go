@@ -8,13 +8,15 @@ import (
 	"time"
 )
 
+var Logger = logrus.New()
+
 func Log() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		start := time.Now()
 
 		context.Next()
 
-		entry := logrus.WithFields(logForm(context, time.Now().Sub(start)))
+		entry := Logger.WithFields(logForm(context, time.Now().Sub(start)))
 
 		if status := context.Writer.Status() ; http.StatusBadRequest > status && status >= http.StatusOK {
 			entry.Info()

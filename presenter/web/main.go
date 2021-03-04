@@ -1,14 +1,18 @@
 package web
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func Main() {
 	router := gin.New()
+
 	router.Use(gin.Recovery())
 
-	activityRouter := router.Group("/activity")
+	plutoRouter := router.Group("/pluto")
 	{
-		activityRouter.POST("/", setActivities)
+		plutoRouter.POST("/activity", setActivities)
+		plutoRouter.POST("/student", setStudents)
 	}
 
 	router.Run()

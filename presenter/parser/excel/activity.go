@@ -1,7 +1,7 @@
 package excel
 
 import (
-	"excel-import/usecase/dto"
+	"pluto/usecase/dto"
 	"fmt"
 	"mime/multipart"
 	"time"

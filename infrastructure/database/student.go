@@ -1,6 +1,6 @@
 package database
 
-import "excel-import/entity"
+import "pluto/entity"
 
 var StudentRepository entity.StudentRepository = Initialize()
 

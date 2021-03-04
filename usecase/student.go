@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"excel-import/entity"
-	"excel-import/infrastructure/database"
-	"excel-import/usecase/dto"
+	"pluto/entity"
+	"pluto/infrastructure/database"
+	"pluto/usecase/dto"
 )
 
 var studentRepository = database.StudentRepository

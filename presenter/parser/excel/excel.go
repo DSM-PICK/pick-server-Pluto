@@ -1,7 +1,7 @@
 package excel
 
 import (
-	"excel-import/usecase/dto"
+	"pluto/usecase/dto"
 	"github.com/tealeg/xlsx/v3"
 	"mime/multipart"
 )

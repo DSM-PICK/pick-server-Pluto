@@ -1,7 +1,7 @@
 package main
 
 import (
-	"excel-import/presenter/web"
+	"pluto/presenter/web"
 )
 
 func main() {

@@ -1,7 +1,6 @@
 package excel
 
 import (
-	"fmt"
 	"mime/multipart"
 	"pluto/usecase/dto"
 	"time"
@@ -13,8 +12,6 @@ func ParseActivities(formData *multipart.FileHeader) dto.SetActivityRequest {
 	for _, element := range activities(formData) {
 		request.Activities = append(request.Activities, element.(dto.Activity))
 	}
-
-	fmt.Println(request)
 
 	return *request
 }

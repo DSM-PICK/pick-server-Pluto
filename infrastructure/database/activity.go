@@ -1,8 +1,10 @@
 package database
 
-import "excel-import/domain"
+import "excel-import/entity"
 
-func (db *Database) CreateActivity(activity domain.Activity) domain.Activity {
+var ActivityRepository entity.ActivityRepository = Initialize()
+
+func (db *Database) CreateActivity(activity entity.Activity) entity.Activity {
 	db.connection.FirstOrCreate(&activity)
 	return activity
 }

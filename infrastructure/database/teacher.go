@@ -1,11 +1,13 @@
 package database
 
 import (
-	"excel-import/domain"
+	"excel-import/entity"
 )
 
-func (db *Database) FindTeacherByName(name string) *domain.Teacher {
-	teacher := new(domain.Teacher)
+var TeacherRepository entity.TeacherRepository = Initialize()
+
+func (db *Database) FindTeacherByName(name string) *entity.Teacher {
+	teacher := new(entity.Teacher)
 	db.connection.First(teacher, "name = ?", name)
 	return teacher
 }

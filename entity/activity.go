@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"errors"
+	"fmt"
 	"time"
 )
 
@@ -30,7 +30,7 @@ func WeekdayCheck(weekday string) (string, error) {
 	case "Friday":
 		return "club", nil
 	}
-	return "", errors.New("invalid schedule")
+	return "", fmt.Errorf("invalid schedule")
 }
 
 type ActivityRepository interface {

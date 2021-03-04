@@ -1,9 +1,9 @@
 package excel
 
 import (
-	"pluto/usecase/dto"
 	"github.com/tealeg/xlsx/v3"
 	"mime/multipart"
+	"pluto/usecase/dto"
 )
 
 func ParseStudents(formData *multipart.FileHeader) dto.SetStudentRequest {

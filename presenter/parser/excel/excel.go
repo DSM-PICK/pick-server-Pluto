@@ -1,9 +1,9 @@
 package excel
 
 import (
-	"pluto/usecase/dto"
 	"github.com/tealeg/xlsx/v3"
 	"mime/multipart"
+	"pluto/usecase/dto"
 )
 
 type parser func(row *xlsx.Row) dto.Element

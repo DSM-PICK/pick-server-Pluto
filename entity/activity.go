@@ -17,18 +17,6 @@ type Activity struct {
 	ForthFloorTeacherId string `gorm:"size:16"`
 }
 
-func ScheduleCheck(scheduleType string) (string, error) {
-	switch scheduleType {
-	case "동아리":
-		return "club", nil
-	case "자습":
-		return "self-study", nil
-	case "방과후":
-		return "after-school", nil
-	}
-	return "", errors.New("invalid schedule")
-}
-
 func WeekdayCheck(weekday string) (string, error) {
 	switch weekday {
 	case "Monday":

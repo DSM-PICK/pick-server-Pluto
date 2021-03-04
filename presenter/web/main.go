@@ -7,9 +7,11 @@ import (
 )
 
 func Main() {
-	middleware.Logger.Out, _ = os.OpenFile("./resources/log/pluto.log",
+	var e error
+	middleware.Logger.Out, e = os.OpenFile(os.Getenv("LOG_PATH"),
 										   os.O_CREATE|os.O_WRONLY|os.O_APPEND,
 										   0666)
+	if e != nil { panic(e) }
 
 	router := gin.New()
 

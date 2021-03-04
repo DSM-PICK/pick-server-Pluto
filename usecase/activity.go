@@ -1,14 +1,14 @@
 package usecase
 
 import (
-	"excel-import/domain"
+	"excel-import/entity"
 	"excel-import/infrastructure/database"
 	"excel-import/usecase/dto"
 	"time"
 )
 
-var activityRepository domain.ActivityRepository = database.Initialize()
-var teacherRepository domain.TeacherRepository = database.Initialize()
+var activityRepository = database.ActivityRepository
+var teacherRepository = database.TeacherRepository
 
 func SetActivities(request dto.SetActivityRequest) {
 	for _, activity := range request.Activities {
@@ -16,10 +16,10 @@ func SetActivities(request dto.SetActivityRequest) {
 	}
 }
 
-func setActivity(activity dto.Activity)  {
+func setActivity(activity dto.Activity) {
 	date, e := time.Parse("2006-01-02", activity.Date)
 	if e != nil { return }
-	schedule, e := domain.ScheduleCheck(activity.Schedule)
+	schedule, e := entity.WeekdayCheck(activity.Weekday)
 	if e != nil { return }
 	secondFloorTeacher := teacherRepository.FindTeacherByName(activity.SecondFloorTeacherName)
 	thirdFloorTeacher := teacherRepository.FindTeacherByName(activity.ThirdFloorTeacherName)
@@ -28,7 +28,7 @@ func setActivity(activity dto.Activity)  {
 		return
 	}
 
-	activityRepository.CreateActivity(domain.Activity{
+	activityRepository.CreateActivity(entity.Activity{
 		Date: date,
 		Schedule: schedule,
 		SecondFloorTeacher: *secondFloorTeacher,

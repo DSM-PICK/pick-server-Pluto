@@ -8,7 +8,7 @@ import (
 
 var studentRepository = database.StudentRepository
 
-func SetStudent(request dto.SetStudentRequest) {
+func SetStudents(request dto.SetStudentRequest) {
 	for _, student := range request.Students {
 		setStudent(student)
 	}

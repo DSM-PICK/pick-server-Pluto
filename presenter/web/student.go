@@ -16,7 +16,7 @@ func setStudents(context *gin.Context) {
 		exception.DefaultBadRequest(context) ; return
 	}
 
-	usecase.SetStudent(excel.ParseStudents(formData))
+	usecase.SetStudents(excel.ParseStudents(formData))
 
 	context.Status(http.StatusCreated)
 }

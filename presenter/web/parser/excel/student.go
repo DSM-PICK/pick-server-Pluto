@@ -1,7 +1,7 @@
 package excel
 
 import (
-	"github.com/tealeg/xlsx/v3"
+	"github.com/tealeg/xlsx"
 	"mime/multipart"
 	"pluto/usecase/dto"
 )

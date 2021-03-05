@@ -37,9 +37,9 @@ func activities(formData *multipart.FileHeader) []dto.Element {
 
 			for weekIdx := monthIdx + 2 ; weekIdx <= monthIdx + 2 + 4 * weekCount ; weekIdx += 4 {
 				weekRow, _ := sheet.Row(weekIdx)
-				secondFloorTeacherRow, _ := sheet.Row(weekIdx + 1)
+				secondFloorTeacherRow, _ := sheet.Row(weekIdx + 3)
 				thirdFloorTeacherRow, _ := sheet.Row(weekIdx + 2)
-				fourthFloorTeacherRow, _ := sheet.Row(weekIdx + 3)
+				fourthFloorTeacherRow, _ := sheet.Row(weekIdx + 1)
 
 				for dayIdx := 3; dayIdx <= 3 + 2 * 4; dayIdx += 2 {
 					day := weekRow.GetCell(dayIdx).Value

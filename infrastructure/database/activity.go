@@ -6,7 +6,7 @@ import (
 )
 
 func (db *Database) CreateActivity(activity entity.Activity) entity.Activity {
-	db.connection.Clauses(clause.OnConflict{
+	db.Connection.Clauses(clause.OnConflict{
 		Columns: []clause.Column{{Name: "date"}},
 		DoUpdates: clause.AssignmentColumns([]string{"schedule",
 											 		 "second_floor_teacher_id",

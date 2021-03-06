@@ -27,7 +27,7 @@ func initialize(dbConnection gorm.Dialector) *Database {
 	if e != nil {
 		log.Panic("database connection failed")
 	}
-	DB = &Database{connection: connection}
+	DB = &Database{Connection: connection}
 	return DB
 }
 
@@ -48,5 +48,5 @@ func mysqlConnection() gorm.Dialector {
 }
 
 type Database struct {
-	connection *gorm.DB
+	Connection *gorm.DB
 }

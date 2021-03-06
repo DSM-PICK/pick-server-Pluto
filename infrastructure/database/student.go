@@ -6,7 +6,7 @@ import (
 )
 
 func (db *Database) CreateStudent(student entity.Student) entity.Student {
-	db.connection.Clauses(clause.OnConflict{
+	db.Connection.Clauses(clause.OnConflict{
 		Columns: []clause.Column{{Name: "num"}},
 		DoUpdates: clause.AssignmentColumns([]string{"name",
 													 "club_name",

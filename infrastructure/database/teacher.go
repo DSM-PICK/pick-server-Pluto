@@ -6,6 +6,6 @@ import (
 
 func (db *Database) FindTeacherByName(name string) *entity.Teacher {
 	teacher := new(entity.Teacher)
-	db.connection.First(teacher, "name = ?", name)
+	db.Connection.First(teacher, "name = ?", name)
 	return teacher
 }

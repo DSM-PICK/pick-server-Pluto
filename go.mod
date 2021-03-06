@@ -8,5 +8,5 @@ require (
 	github.com/sirupsen/logrus v1.8.0
 	github.com/tealeg/xlsx/v3 v3.2.3
 	gorm.io/driver/mysql v1.0.4
-	gorm.io/gorm v1.20.12
+	gorm.io/gorm v1.21.2
 )

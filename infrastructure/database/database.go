@@ -12,9 +12,13 @@ import (
 
 var DB *Database
 
-func Initialize() *Database {
+func InitializeMysql() *Database {
+	return initialize(mysqlConnection())
+}
+
+func initialize(dbConnection gorm.Dialector) *Database {
 	if DB != nil { return DB }
-	connection, e := gorm.Open(mysql.Open(databaseUrl()), &gorm.Config{
+	connection, e := gorm.Open(dbConnection, &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
 		},
@@ -27,8 +31,8 @@ func Initialize() *Database {
 	return DB
 }
 
-func databaseUrl() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+func mysqlConnection() gorm.Dialector {
+	url := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		os.Getenv("DATABASE_USERNAME"),
 		os.Getenv("DATABASE_PASSWORD"),
 		os.Getenv("DATABASE_HOST"),
@@ -40,6 +44,7 @@ func databaseUrl() string {
 			return port
 		}(),
 		"pick?charset=utf8&parseTime=True")
+	return mysql.Open(url)
 }
 
 type Database struct {

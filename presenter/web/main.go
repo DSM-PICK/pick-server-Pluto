@@ -2,6 +2,7 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"os"
 	"pluto/presenter/web/middleware"
 )
@@ -25,5 +26,5 @@ func Main() {
 		plutoRouter.POST("/student", setStudents)
 	}
 
-	router.Run()
+	log.Fatal(router.Run())
 }

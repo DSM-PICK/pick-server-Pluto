@@ -6,7 +6,7 @@ type SetActivityRequest struct {
 
 type Activity struct {
 	Date                   string `json:"date"`
-	Weekday                string `json:"schedule"`
+	Weekday                string `json:"weekday"`
 	SecondFloorTeacherName string `json:"second_floor_teacher_name"`
 	ThirdFloorTeacherName  string `json:"third_floor_teacher_name"`
 	FourthFloorTeacherName string `json:"forth_floor_teacher_name"`

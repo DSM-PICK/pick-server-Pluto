@@ -5,8 +5,6 @@ import (
 	"pluto/entity"
 )
 
-var ActivityRepository entity.ActivityRepository = Initialize()
-
 func (db *Database) CreateActivity(activity entity.Activity) entity.Activity {
 	db.connection.Clauses(clause.OnConflict{
 		Columns: []clause.Column{{Name: "date"}},

@@ -5,8 +5,6 @@ import (
 	"pluto/entity"
 )
 
-var StudentRepository entity.StudentRepository = Initialize()
-
 func (db *Database) CreateStudent(student entity.Student) entity.Student {
 	db.connection.Clauses(clause.OnConflict{
 		Columns: []clause.Column{{Name: "num"}},

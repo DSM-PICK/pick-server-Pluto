@@ -2,13 +2,12 @@ package usecase
 
 import (
 	"pluto/entity"
-	"pluto/infrastructure/database"
 	"pluto/usecase/dto"
 	"time"
 )
 
-var activityRepository = database.ActivityRepository
-var teacherRepository = database.TeacherRepository
+var ActivityRepository entity.ActivityRepository
+var TeacherRepository entity.TeacherRepository
 
 func SetActivities(request dto.SetActivityRequest) {
 	for _, activity := range request.Activities {
@@ -21,14 +20,14 @@ func setActivity(activity dto.Activity) {
 	if e != nil { return }
 	schedule, e := entity.WeekdayCheck(activity.Weekday)
 	if e != nil { return }
-	secondFloorTeacher := teacherRepository.FindTeacherByName(activity.SecondFloorTeacherName)
-	thirdFloorTeacher := teacherRepository.FindTeacherByName(activity.ThirdFloorTeacherName)
-	fourthFloorTeacher := teacherRepository.FindTeacherByName(activity.FourthFloorTeacherName)
+	secondFloorTeacher := TeacherRepository.FindTeacherByName(activity.SecondFloorTeacherName)
+	thirdFloorTeacher := TeacherRepository.FindTeacherByName(activity.ThirdFloorTeacherName)
+	fourthFloorTeacher := TeacherRepository.FindTeacherByName(activity.FourthFloorTeacherName)
 	if secondFloorTeacher == nil || thirdFloorTeacher == nil || fourthFloorTeacher == nil {
 		return
 	}
 
-	activityRepository.CreateActivity(entity.Activity{
+	ActivityRepository.CreateActivity(entity.Activity{
 		Date: date,
 		Schedule: schedule,
 		SecondFloorTeacher: *secondFloorTeacher,

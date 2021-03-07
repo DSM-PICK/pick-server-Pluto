@@ -2,9 +2,14 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/tealeg/xlsx/v3"
 	"log"
 	"os"
+	"path/filepath"
+	webException "pluto/presenter/web/exception"
 	"pluto/presenter/web/middleware"
+	parserException "pluto/usecase/parser"
+	"strings"
 )
 
 func Main() {
@@ -28,3 +33,20 @@ func Main() {
 
 	log.Fatal(router.Run())
 }
+
+func getXlsxFromFormData(context *gin.Context) (*xlsx.File, error) {
+	formData, e := context.FormFile("file")
+	if e != nil { webException.DefaultBadRequest(context) ; return nil, parserException.InvalidFile
+	}
+
+	if filepath.Ext(strings.ToLower(formData.Filename)) != ".xlsx" {
+		return nil, parserException.InvalidFile
+	}
+
+	file, _ := formData.Open()
+	defer file.Close()
+
+	workbook, _ := xlsx.OpenReaderAt(file, formData.Size)
+	return workbook, nil
+}
+

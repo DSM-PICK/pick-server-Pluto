@@ -3,20 +3,17 @@ package web
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"path/filepath"
 	"pluto/presenter/web/exception"
-	"pluto/presenter/web/parser/excel"
 	"pluto/usecase"
-	"strings"
+	"pluto/usecase/parser/excel"
 )
 
 func setActivities(context *gin.Context) {
-	formData, e := context.FormFile("file")
-	if e != nil || filepath.Ext(strings.ToLower(formData.Filename)) != ".xlsx" {
-		exception.DefaultBadRequest(context) ; return
-	}
+	file, e := getXlsxFromFormData(context)
+	if e != nil { return }
 
-	usecase.SetActivities(excel.ParseActivities(formData))
+	e = usecase.SetActivities(excel.ParseActivities(file))
+	if e != nil { exception.DefaultBadRequest(context) ; return }
 
 	context.Status(http.StatusCreated)
 }

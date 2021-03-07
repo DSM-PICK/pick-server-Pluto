@@ -3,14 +3,19 @@ package usecase
 import (
 	"pluto/entity"
 	"pluto/usecase/dto"
+	"pluto/usecase/parser"
 )
 
 var StudentRepository entity.StudentRepository
 
-func SetStudents(request dto.SetStudentRequest) {
+func SetStudents(request dto.SetStudentRequest) error {
+	if len(request.Students) == 0 { return parser.InvalidRequest }
+
 	for _, student := range request.Students {
 		setStudent(student)
 	}
+
+	return nil
 }
 
 func setStudent(student dto.Student) {

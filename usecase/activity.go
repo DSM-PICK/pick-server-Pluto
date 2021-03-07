@@ -3,16 +3,21 @@ package usecase
 import (
 	"pluto/entity"
 	"pluto/usecase/dto"
+	"pluto/usecase/parser"
 	"time"
 )
 
 var ActivityRepository entity.ActivityRepository
 var TeacherRepository entity.TeacherRepository
 
-func SetActivities(request dto.SetActivityRequest) {
+func SetActivities(request dto.SetActivityRequest) error {
+	if request.Activities == nil { return parser.InvalidRequest }
+
 	for _, activity := range request.Activities {
 		setActivity(activity)
 	}
+
+	return nil
 }
 
 func setActivity(activity dto.Activity) {

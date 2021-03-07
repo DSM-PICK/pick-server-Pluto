@@ -12,11 +12,19 @@ import (
 
 var DB *Database
 
-func InitializeMysql() *Database {
-	return initialize(mysqlConnection())
+type ConnectionInformation struct {
+	Username string
+	Password string
+	Host string
+	Port string
+	DatabaseName string
 }
 
-func initialize(dbConnection gorm.Dialector) *Database {
+func DefaultInitialize() *Database {
+	return Initialize(MysqlConnection())
+}
+
+func Initialize(dbConnection gorm.Dialector) *Database {
 	if DB != nil { return DB }
 	connection, e := gorm.Open(dbConnection, &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
@@ -31,20 +39,30 @@ func initialize(dbConnection gorm.Dialector) *Database {
 	return DB
 }
 
-func mysqlConnection() gorm.Dialector {
-	url := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
-		os.Getenv("DATABASE_USERNAME"),
-		os.Getenv("DATABASE_PASSWORD"),
-		os.Getenv("DATABASE_HOST"),
+func MysqlConnection() gorm.Dialector {
+	url := MysqlUrl(ConnectionInformation{
+		Username: os.Getenv("DATABASE_USERNAME"),
+		Password: os.Getenv("DATABASE_PASSWORD"),
+		Host: os.Getenv("DATABASE_HOST"),
+		Port: os.Getenv("PORT"),
+		DatabaseName: "pick",
+	})
+	return mysql.Open(url)
+}
+
+func MysqlUrl(information ConnectionInformation) string {
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+		information.Username,
+		information.Password,
+		information.Host,
 		func() string {
-			port := os.Getenv("PORT")
+			port := information.Port
 			if port == "" {
 				port = "3306"
 			}
 			return port
 		}(),
-		"pick?charset=utf8&parseTime=True")
-	return mysql.Open(url)
+		information.DatabaseName + "?charset=utf8&parseTime=True")
 }
 
 type Database struct {

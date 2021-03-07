@@ -1,4 +1,4 @@
-package database
+package unit
 
 import (
 	"github.com/stretchr/testify/mock"

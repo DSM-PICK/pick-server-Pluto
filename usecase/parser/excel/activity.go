@@ -1,25 +1,25 @@
 package excel
 
 import (
-	"mime/multipart"
+	"github.com/tealeg/xlsx/v3"
 	"pluto/usecase/dto"
 	"time"
 )
 
-func ParseActivities(formData *multipart.FileHeader) dto.SetActivityRequest {
+func ParseActivities(file *xlsx.File) dto.SetActivityRequest {
 	request := new(dto.SetActivityRequest)
 
-	for _, element := range activities(formData) {
+	for _, element := range activities(file) {
 		request.Activities = append(request.Activities, element.(dto.Activity))
 	}
 
 	return *request
 }
 
-func activities(formData *multipart.FileHeader) []dto.Element {
+func activities(file *xlsx.File) []dto.Element {
 	request := *new([]dto.Element)
 
-	for _, sheet := range getWorkbook(formData).Sheets {
+	for _, sheet := range file.Sheets {
 		for monthIdx := 2 ; monthIdx <= 2 + 27 * 12 ; monthIdx += 23 {
 			monthRow, _ := sheet.Row(monthIdx)
 			monthRawValue, e := monthRow.GetCell(5).GetTime(false)

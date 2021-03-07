@@ -2,14 +2,13 @@ package excel
 
 import (
 	"github.com/tealeg/xlsx/v3"
-	"mime/multipart"
 	"pluto/usecase/dto"
 )
 
-func ParseStudents(formData *multipart.FileHeader) dto.SetStudentRequest {
+func ParseStudents(file *xlsx.File) dto.SetStudentRequest {
 	request := new(dto.SetStudentRequest)
 
-	for _, element := range parseDefaultForm(formData, student, 3) {
+	for _, element := range parseDefaultForm(file, student, 3) {
 		request.Students = append(request.Students, element.(dto.Student))
 	}
 

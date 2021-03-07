@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	usecase.ActivityRepository = database.InitializeMysql()
-	usecase.StudentRepository = database.InitializeMysql()
-	usecase.TeacherRepository = database.InitializeMysql()
+	usecase.ActivityRepository = database.DefaultInitialize()
+	usecase.StudentRepository = database.DefaultInitialize()
+	usecase.TeacherRepository = database.DefaultInitialize()
 
 	web.Main()
 }

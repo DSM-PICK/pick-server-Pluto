@@ -26,7 +26,9 @@ func Auth() gin.HandlerFunc {
 
 func jwtAuth(context *gin.Context) (jwt.MapClaims, error) {
 	authorization := context.Request.Header.Get("Authorization")
-	if authorization[:7] != "Bearer " { return nil, fmt.Errorf(exception.InvalidAuthorizationException) }
+	if len(authorization) == 0 || authorization[:7] != "Bearer " {
+		return nil, fmt.Errorf(exception.InvalidAuthorizationException)
+	}
 
 	token, err := jwt.Parse(authorization[7:], func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("SECRET_KEY")), nil

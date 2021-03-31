@@ -23,6 +23,7 @@ func Main() {
 
 	router.Use(middleware.Log())
 	router.Use(middleware.Recover())
+	router.Use(middleware.Cors())
 
 	plutoRouter := router.Group("/pluto")
 	plutoRouter.Use(middleware.Auth())

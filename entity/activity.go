@@ -22,7 +22,7 @@ func WeekdayCheck(weekday string) (string, error) {
 	case "Monday":
 		return "after-school", nil
 	case "Tuesday":
-		return "after-school", nil
+		return "club", nil
 	case "Wednesday":
 		return "club", nil
 	case "Thursday":

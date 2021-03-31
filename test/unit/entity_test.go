@@ -14,7 +14,7 @@ func TestWeekdayCheck(t *testing.T) {
 	friday, _ := entity.WeekdayCheck("Friday")
 
 	assert.Equal(t, monday, "after-school")
-	assert.Equal(t, tuesday, "after-school")
+	assert.Equal(t, tuesday, "club")
 	assert.Equal(t, wednesday, "club")
 	assert.Equal(t, thursday, "self-study")
 	assert.Equal(t, friday, "club")

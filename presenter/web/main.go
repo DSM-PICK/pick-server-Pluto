@@ -15,9 +15,11 @@ import (
 func Main() {
 	var e error
 	middleware.Logger.Out, e = os.OpenFile(os.Getenv("LOG_PATH"),
-										   os.O_CREATE|os.O_WRONLY|os.O_APPEND,
-										   0666)
-	if e != nil { panic(e) }
+		os.O_CREATE|os.O_WRONLY|os.O_APPEND,
+		0666)
+	if e != nil {
+		panic(e)
+	}
 
 	router := gin.New()
 
@@ -26,10 +28,9 @@ func Main() {
 	router.Use(middleware.Cors())
 
 	plutoRouter := router.Group("/pluto")
-	plutoRouter.Use(middleware.Auth())
 	{
-		plutoRouter.POST("/activity", setActivities)
-		plutoRouter.POST("/student", setStudents)
+		plutoRouter.POST("/activity", setActivities).Use(middleware.Auth("SECRET_KEY"))
+		plutoRouter.POST("/student", setStudents).Use(middleware.Auth("ADMIN_SECRET_KEY"))
 	}
 
 	log.Fatal(router.Run())
@@ -37,7 +38,9 @@ func Main() {
 
 func getXlsxFromFormData(context *gin.Context) (*xlsx.File, error) {
 	formData, e := context.FormFile("file")
-	if e != nil { webException.DefaultBadRequest(context) ; return nil, parserException.InvalidFile
+	if e != nil {
+		webException.DefaultBadRequest(context)
+		return nil, parserException.InvalidFile
 	}
 
 	if filepath.Ext(strings.ToLower(formData.Filename)) != ".xlsx" {
@@ -50,4 +53,3 @@ func getXlsxFromFormData(context *gin.Context) (*xlsx.File, error) {
 	workbook, _ := xlsx.OpenReaderAt(file, formData.Size)
 	return workbook, nil
 }
-

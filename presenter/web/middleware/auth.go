@@ -8,9 +8,9 @@ import (
 	"pluto/presenter/web/exception"
 )
 
-func Auth() gin.HandlerFunc {
+func Auth(environment string) gin.HandlerFunc {
 	return func(context *gin.Context) {
-		_, err := jwtAuth(context)
+		_, err := jwtAuth(context, environment)
 
 		if err != nil {
 			switch err.Error() {
@@ -24,17 +24,19 @@ func Auth() gin.HandlerFunc {
 	}
 }
 
-func jwtAuth(context *gin.Context) (jwt.MapClaims, error) {
+func jwtAuth(context *gin.Context, environment string) (jwt.MapClaims, error) {
 	authorization := context.Request.Header.Get("Authorization")
 	if len(authorization) == 0 || authorization[:7] != "Bearer " {
 		return nil, fmt.Errorf(exception.InvalidAuthorizationException)
 	}
 
 	token, err := jwt.Parse(authorization[7:], func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("SECRET_KEY")), nil
+		return []byte(os.Getenv(environment)), nil
 	})
 
-	if err != nil { return nil, fmt.Errorf(exception.InvalidAuthorizationException) }
+	if err != nil {
+		return nil, fmt.Errorf(exception.InvalidAuthorizationException)
+	}
 
 	return token.Claims.(jwt.MapClaims), nil
 }

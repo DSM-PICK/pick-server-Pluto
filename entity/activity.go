@@ -6,15 +6,15 @@ import (
 )
 
 type Activity struct {
-	Date time.Time `gorm:"PrimaryKey"`
-	Schedule string `gorm:"size:28"`
+	Date     time.Time `gorm:"PrimaryKey"`
+	Schedule string    `gorm:"size:28"`
 
-	SecondFloorTeacher Teacher `gorm:"ForeignKey:SecondFloorTeacherId"`
-	SecondFloorTeacherId string `gorm:"size:16"`
-	ThirdFloorTeacher Teacher `gorm:"ForeignKey:ThirdFloorTeacherId"`
-	ThirdFloorTeacherId string `gorm:"size:16"`
-	ForthFloorTeacher Teacher `gorm:"ForeignKey:ForthFloorTeacherId"`
-	ForthFloorTeacherId string `gorm:"size:16"`
+	SecondFloorTeacher   Teacher `gorm:"ForeignKey:SecondFloorTeacherId"`
+	SecondFloorTeacherId string  `gorm:"size:16"`
+	ThirdFloorTeacher    Teacher `gorm:"ForeignKey:ThirdFloorTeacherId"`
+	ThirdFloorTeacherId  string  `gorm:"size:16"`
+	ForthFloorTeacher    Teacher `gorm:"ForeignKey:ForthFloorTeacherId"`
+	ForthFloorTeacherId  string  `gorm:"size:16"`
 }
 
 func WeekdayCheck(weekday string) (string, error) {

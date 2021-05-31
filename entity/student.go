@@ -5,12 +5,12 @@ import (
 )
 
 type Student struct {
-	Num string `gorm:"size:4;PrimaryKey"`
-	Name string `gorm:"size:12"`
-	ClubName string `gorm:"size:20"`
-	ClassName string `gorm:"size:20"`
-	IsMondaySelfStudy bool `gorm:"default:false"`
-	IsTuesdaySelfStudy bool `gorm:"default:false"`
+	Num                string `gorm:"size:4;PrimaryKey"`
+	Name               string `gorm:"size:12"`
+	ClubName           string `gorm:"size:20"`
+	ClassName          string `gorm:"size:20"`
+	IsMondaySelfStudy  bool   `gorm:"default:false"`
+	IsTuesdaySelfStudy bool   `gorm:"default:false"`
 }
 
 func NumCheck(num string) bool {

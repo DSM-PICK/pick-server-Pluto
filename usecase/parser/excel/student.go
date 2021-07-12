@@ -17,7 +17,7 @@ func ParseStudents(file *xlsx.File) dto.SetStudentRequest {
 
 func student(row *xlsx.Row) dto.Element {
 	return dto.Student{
-		Num: row.GetCell(0).Value,
+		Num:  row.GetCell(0).Value,
 		Name: row.GetCell(1).Value,
 	}
 }

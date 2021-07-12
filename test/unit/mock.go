@@ -12,10 +12,10 @@ var MockConnection = new(TestConnection)
 var TestActivitiesRequest = dto.SetActivityRequest{
 	Activities: []dto.Activity{
 		{
-			Date: "2021-03-01",
-			Weekday: "Monday",
+			Date:                   "2021-03-01",
+			Weekday:                "Monday",
 			SecondFloorTeacherName: "정우영",
-			ThirdFloorTeacherName: "정우영",
+			ThirdFloorTeacherName:  "정우영",
 			FourthFloorTeacherName: "정우영",
 		},
 	},
@@ -24,16 +24,16 @@ var TestActivitiesRequest = dto.SetActivityRequest{
 var TestStudentsRequest = dto.SetStudentRequest{
 	Students: []dto.Student{
 		{
-			Num: "1418",
+			Num:  "1418",
 			Name: "정우영",
 		},
 	},
 }
 
 var TestTeacherEntity = &entity.Teacher{
-	Id: "test",
-	Pw: "test",
-	Name: "정우영",
+	Id:     "test",
+	Pw:     "test",
+	Name:   "정우영",
 	Office: "316호",
 }
 
@@ -43,13 +43,12 @@ func (testConnection *TestConnection) TestActivityEntity() entity.Activity {
 	parsed, _ := time.Parse("2006-01-02", activity.Date)
 	weekday, _ := entity.WeekdayCheck(activity.Weekday)
 
-
 	return entity.Activity{
-		Date: parsed,
-		Schedule: weekday,
+		Date:               parsed,
+		Schedule:           weekday,
 		SecondFloorTeacher: *testConnection.FindTeacherByName(activity.SecondFloorTeacherName),
-		ThirdFloorTeacher: *testConnection.FindTeacherByName(activity.ThirdFloorTeacherName),
-		ForthFloorTeacher: *testConnection.FindTeacherByName(activity.FourthFloorTeacherName),
+		ThirdFloorTeacher:  *testConnection.FindTeacherByName(activity.ThirdFloorTeacherName),
+		ForthFloorTeacher:  *testConnection.FindTeacherByName(activity.FourthFloorTeacherName),
 	}
 }
 
@@ -60,7 +59,7 @@ func (testConnection *TestConnection) TestStudentEntity() entity.Student {
 		Num:       student.Num,
 		Name:      student.Name,
 		ClassName: string(student.Num[0]) + "학년 " + string(student.Num[1]) + "반",
-		ClubName: "창조실",
+		ClubName:  "창조실",
 	}
 }
 
@@ -82,4 +81,3 @@ func (testConnection *TestConnection) FindTeacherByName(name string) *entity.Tea
 	testConnection.On("FindTeacherByName", "정우영").Return(TestTeacherEntity)
 	return testConnection.Called(name).Get(0).(*entity.Teacher)
 }
-

@@ -13,10 +13,10 @@ import (
 var DB *Database
 
 type ConnectionInformation struct {
-	Username string
-	Password string
-	Host string
-	Port string
+	Username     string
+	Password     string
+	Host         string
+	Port         string
 	DatabaseName string
 }
 
@@ -25,7 +25,9 @@ func DefaultInitialize() *Database {
 }
 
 func Initialize(dbConnection gorm.Dialector) *Database {
-	if DB != nil { return DB }
+	if DB != nil {
+		return DB
+	}
 	connection, e := gorm.Open(dbConnection, &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
@@ -62,7 +64,7 @@ func MysqlUrl(information ConnectionInformation) string {
 			}
 			return port
 		}(),
-		information.DatabaseName + "?charset=utf8&parseTime=True")
+		information.DatabaseName+"?charset=utf8&parseTime=True")
 }
 
 type Database struct {

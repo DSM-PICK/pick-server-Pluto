@@ -5,6 +5,6 @@ type SetStudentRequest struct {
 }
 
 type Student struct {
-	Num string `json:"num"`
+	Num  string `json:"num"`
 	Name string `json:"name"`
 }
